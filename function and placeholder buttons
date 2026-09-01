@@ -1,0 +1,3537 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Opportunity Atlas | Opportunity Quest</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+:root{
+--bg:#071018;
+--panel:#0d1821;
+--panel2:#111f2b;
+--line:#263b49;
+--gold:#e4c46a;
+--cyan:#61d7e8;
+--blue:#69a9f5;
+--green:#70d6a0;
+--cream:#f5f1e7;
+--muted:#9eacb7;
+--red:#e78383;
+--purple:#a98df5;
+}
+
+body{
+font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:
+radial-gradient(circle at 10% 0%,rgba(97,215,232,.10),transparent 30%),
+radial-gradient(circle at 90% 10%,rgba(228,196,106,.08),transparent 30%),
+var(--bg);
+color:var(--cream);
+line-height:1.6;
+}
+
+.container{
+width:min(1500px,94%);
+margin:auto;
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+padding:65px 20px 45px;
+border-bottom:1px solid var(--line);
+}
+
+.eyebrow{
+color:var(--gold);
+font-size:.72rem;
+font-weight:900;
+letter-spacing:.18em;
+text-transform:uppercase;
+margin-bottom:15px;
+}
+
+.hero h1{
+font-size:clamp(2.8rem,6vw,6rem);
+line-height:.96;
+max-width:1100px;
+margin-bottom:22px;
+}
+
+.hero h1 span{
+color:var(--cyan);
+}
+
+.hero p{
+max-width:900px;
+font-size:1.08rem;
+color:var(--muted);
+}
+
+/* =========================
+GAME HUD
+========================= */
+
+.game-hud{
+margin-top:30px;
+display:grid;
+grid-template-columns:2fr repeat(4,1fr);
+gap:12px;
+}
+
+.hud-card{
+background:rgba(13,24,33,.85);
+border:1px solid var(--line);
+border-radius:15px;
+padding:16px;
+}
+
+.hud-card strong{
+display:block;
+font-size:1.65rem;
+color:var(--cyan);
+}
+
+.hud-card span{
+font-size:.65rem;
+color:var(--muted);
+text-transform:uppercase;
+letter-spacing:.1em;
+}
+
+.level-card strong{
+color:var(--gold);
+}
+
+/* XP */
+
+.xp-wrap{
+margin-top:10px;
+}
+
+.xp-top{
+display:flex;
+justify-content:space-between;
+font-size:.7rem;
+color:var(--muted);
+}
+
+.xp-bar{
+height:9px;
+background:#172832;
+border-radius:20px;
+overflow:hidden;
+margin-top:5px;
+}
+
+.xp-fill{
+height:100%;
+width:0%;
+background:linear-gradient(
+90deg,
+var(--gold),
+var(--cyan)
+);
+transition:.6s ease;
+}
+
+/* =========================
+DASHBOARD
+========================= */
+
+.dashboard{
+padding:35px 0 80px;
+}
+
+.panel{
+background:linear-gradient(145deg,var(--panel),#09131b);
+border:1px solid var(--line);
+border-radius:20px;
+padding:25px;
+margin-bottom:20px;
+}
+
+.panel h2{
+color:var(--gold);
+font-size:1.25rem;
+margin-bottom:15px;
+}
+
+.panel-sub{
+font-size:.82rem;
+color:var(--muted);
+margin-top:-7px;
+margin-bottom:18px;
+}
+
+/* =========================
+QUEST CENTER
+========================= */
+
+.quest-layout{
+display:grid;
+grid-template-columns:1.4fr 1fr;
+gap:18px;
+}
+
+.quest{
+background:#08141d;
+border:1px solid var(--line);
+border-radius:14px;
+padding:17px;
+margin-top:10px;
+position:relative;
+overflow:hidden;
+}
+
+.quest:before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+bottom:0;
+width:3px;
+background:var(--cyan);
+}
+
+.quest.complete{
+border-color:rgba(112,214,160,.5);
+background:#0c2019;
+}
+
+.quest.complete:before{
+background:var(--green);
+}
+
+.quest-title{
+font-weight:900;
+font-size:.95rem;
+}
+
+.quest-description{
+font-size:.77rem;
+color:var(--muted);
+margin-top:3px;
+}
+
+.quest-bottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:12px;
+}
+
+.quest-xp{
+color:var(--gold);
+font-size:.7rem;
+font-weight:900;
+}
+
+button{
+border:0;
+border-radius:9px;
+padding:10px 14px;
+font-weight:900;
+cursor:pointer;
+font-size:.75rem;
+transition:.2s;
+}
+
+button:hover{
+transform:translateY(-1px);
+filter:brightness(1.1);
+}
+
+.primary{
+background:var(--cyan);
+color:#061018;
+}
+
+.gold{
+background:var(--gold);
+color:#111;
+}
+
+.secondary{
+background:#182a36;
+color:var(--cream);
+border:1px solid var(--line);
+}
+
+.danger{
+background:#392121;
+color:#ffb4b4;
+}
+
+/* =========================
+JOURNEY
+========================= */
+
+.journey{
+display:flex;
+align-items:center;
+gap:0;
+margin-top:15px;
+overflow-x:auto;
+padding:10px 0 20px;
+}
+
+.journey-step{
+min-width:125px;
+text-align:center;
+position:relative;
+}
+
+.journey-step:not(:last-child):after{
+content:"";
+position:absolute;
+height:2px;
+background:var(--line);
+width:100%;
+left:50%;
+top:25px;
+z-index:0;
+}
+
+.journey-node{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#101e27;
+border:2px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+position:relative;
+z-index:2;
+font-size:20px;
+}
+
+.journey-step.active .journey-node{
+border-color:var(--cyan);
+box-shadow:0 0 18px rgba(97,215,232,.25);
+}
+
+.journey-step.done .journey-node{
+background:#173b2c;
+border-color:var(--green);
+}
+
+.journey-label{
+font-size:.67rem;
+font-weight:800;
+margin-top:7px;
+}
+
+.journey-small{
+font-size:.6rem;
+color:var(--muted);
+}
+
+/* =========================
+DAILY CHALLENGE
+========================= */
+
+.challenge{
+background:
+linear-gradient(
+135deg,
+#1a233f,
+#10192b
+);
+border:1px solid rgba(169,141,245,.4);
+border-radius:17px;
+padding:22px;
+height:100%;
+}
+
+.challenge-label{
+color:var(--purple);
+font-size:.65rem;
+font-weight:900;
+letter-spacing:.15em;
+text-transform:uppercase;
+}
+
+.challenge h3{
+font-size:1.3rem;
+margin:7px 0;
+}
+
+.challenge p{
+font-size:.8rem;
+color:#c3c9d7;
+}
+
+.challenge-reward{
+margin-top:15px;
+color:var(--gold);
+font-weight:900;
+font-size:.75rem;
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.search-area{
+display:grid;
+grid-template-columns:2fr 1fr 1fr auto;
+gap:12px;
+align-items:end;
+}
+
+.field label{
+display:block;
+font-size:.68rem;
+font-weight:900;
+letter-spacing:.1em;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:7px;
+}
+
+input,
+select{
+width:100%;
+background:#061018;
+border:1px solid var(--line);
+border-radius:10px;
+padding:13px;
+color:var(--cream);
+font-size:.9rem;
+outline:none;
+}
+
+input:focus,
+select:focus{
+border-color:var(--cyan);
+}
+
+/* =========================
+CATEGORIES
+========================= */
+
+.category-grid{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:10px;
+}
+
+.category{
+background:#08141d;
+border:1px solid var(--line);
+border-radius:12px;
+padding:14px;
+cursor:pointer;
+transition:.2s;
+}
+
+.category:hover{
+border-color:var(--cyan);
+transform:translateY(-2px);
+}
+
+.category.active{
+border-color:var(--cyan);
+background:#102633;
+}
+
+.category strong{
+display:block;
+font-size:.85rem;
+}
+
+.category span{
+display:block;
+font-size:.65rem;
+color:var(--muted);
+margin-top:4px;
+}
+
+/* =========================
+OPPORTUNITIES
+========================= */
+
+.opportunity-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+margin-bottom:17px;
+}
+
+.result-count{
+font-size:.78rem;
+color:var(--muted);
+}
+
+.opportunity-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.opportunity{
+background:#08141d;
+border:1px solid var(--line);
+border-radius:17px;
+padding:19px;
+display:flex;
+flex-direction:column;
+min-height:310px;
+transition:.2s;
+}
+
+.opportunity:hover{
+border-color:rgba(97,215,232,.5);
+transform:translateY(-2px);
+}
+
+.opportunity-top{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-bottom:10px;
+}
+
+.tag{
+font-size:.62rem;
+font-weight:900;
+letter-spacing:.1em;
+text-transform:uppercase;
+color:var(--gold);
+}
+
+.save{
+background:none;
+border:0;
+padding:0;
+font-size:1.25rem;
+color:var(--muted);
+cursor:pointer;
+}
+
+.save.saved{
+color:var(--gold);
+}
+
+.opportunity h3{
+font-size:1.1rem;
+margin-bottom:8px;
+}
+
+.opportunity p{
+font-size:.8rem;
+color:var(--muted);
+margin-bottom:13px;
+}
+
+.meta{
+display:flex;
+flex-wrap:wrap;
+gap:5px;
+margin-bottom:14px;
+}
+
+.meta span{
+font-size:.6rem;
+padding:4px 7px;
+border-radius:20px;
+background:#132530;
+color:#b7d9df;
+}
+
+.opportunity-footer{
+margin-top:auto;
+display:flex;
+gap:7px;
+}
+
+.opportunity-footer a{
+flex:1;
+text-decoration:none;
+text-align:center;
+padding:10px;
+border-radius:9px;
+font-weight:900;
+font-size:.73rem;
+background:var(--cyan);
+color:#061018;
+}
+
+.opportunity-footer button{
+background:#172935;
+color:var(--cream);
+border:1px solid var(--line);
+}
+
+/* =========================
+DISCOVERY
+========================= */
+
+.discovery{
+display:grid;
+grid-template-columns:1.5fr 1fr;
+gap:18px;
+}
+
+.discovery-box{
+background:
+linear-gradient(145deg,#112632,#08141d);
+border:1px solid rgba(97,215,232,.25);
+border-radius:17px;
+padding:22px;
+}
+
+.discovery-box h3{
+color:var(--cyan);
+margin-bottom:7px;
+}
+
+.discovery-box p{
+color:var(--muted);
+font-size:.83rem;
+}
+
+.path-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:17px;
+}
+
+.path{
+background:#061018;
+border:1px solid var(--line);
+border-radius:11px;
+padding:14px;
+}
+
+.path strong{
+display:block;
+font-size:.82rem;
+}
+
+.path span{
+font-size:.68rem;
+color:var(--muted);
+}
+
+/* =========================
+WATCHLIST
+========================= */
+
+.watch-stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:17px;
+}
+
+.watch-stat{
+background:#08141d;
+border:1px solid var(--line);
+border-radius:12px;
+padding:14px;
+}
+
+.watch-stat strong{
+display:block;
+font-size:1.5rem;
+color:var(--cyan);
+}
+
+.watch-stat span{
+font-size:.62rem;
+color:var(--muted);
+text-transform:uppercase;
+}
+
+/* =========================
+TRACKER
+========================= */
+
+.tracker-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
+
+.tracker-stat{
+background:#08141d;
+border:1px solid var(--line);
+border-radius:12px;
+padding:16px;
+}
+
+.tracker-stat strong{
+display:block;
+font-size:1.8rem;
+color:var(--cyan);
+}
+
+.tracker-stat span{
+font-size:.65rem;
+color:var(--muted);
+text-transform:uppercase;
+}
+
+.tracker-form{
+display:grid;
+grid-template-columns:2fr 1fr 1fr auto;
+gap:10px;
+margin-top:20px;
+}
+
+.tracker-list{
+margin-top:17px;
+display:grid;
+gap:8px;
+}
+
+.tracker-item{
+display:grid;
+grid-template-columns:2fr 1fr 1fr auto;
+gap:10px;
+align-items:center;
+background:#08141d;
+border:1px solid var(--line);
+border-radius:10px;
+padding:12px;
+}
+
+.tracker-item strong{
+font-size:.8rem;
+}
+
+.tracker-item span{
+font-size:.72rem;
+color:var(--muted);
+}
+
+.status{
+display:inline-block;
+padding:4px 8px;
+border-radius:20px;
+font-size:.58rem;
+font-weight:900;
+text-transform:uppercase;
+}
+
+.researching{
+background:#24352d;
+color:#a9e8c5;
+}
+
+.preparing{
+background:#30382d;
+color:#e0dc98;
+}
+
+.applied{
+background:#23334b;
+color:#a9c9f4;
+}
+
+.rejected{
+background:#422626;
+color:#ffb2b2;
+}
+
+.won{
+background:#263e2d;
+color:#9ce6b7;
+}
+
+/* =========================
+ACHIEVEMENTS
+========================= */
+
+.achievement-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.achievement{
+background:#08141d;
+border:1px solid var(--line);
+border-radius:12px;
+padding:15px;
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.achievement.locked{
+opacity:.35;
+}
+
+.achievement-icon{
+font-size:24px;
+}
+
+.achievement strong{
+display:block;
+font-size:.75rem;
+}
+
+.achievement span{
+font-size:.63rem;
+color:var(--muted);
+}
+
+/* =========================
+WARNING
+========================= */
+
+.warning{
+padding:18px;
+border-left:3px solid var(--gold);
+background:#101b20;
+border-radius:9px;
+}
+
+.warning h3{
+color:var(--gold);
+font-size:.95rem;
+margin-bottom:4px;
+}
+
+.warning p{
+color:var(--muted);
+font-size:.78rem;
+}
+
+/* =========================
+NOTIFICATION
+========================= */
+
+#notification{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#111f2b;
+border:1px solid var(--cyan);
+color:white;
+padding:15px 19px;
+border-radius:12px;
+box-shadow:0 15px 35px rgba(0,0,0,.4);
+opacity:0;
+transform:translateY(20px);
+pointer-events:none;
+transition:.3s;
+z-index:9999;
+font-size:.8rem;
+font-weight:800;
+}
+
+#notification.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* =========================
+FOOTER
+========================= */
+
+footer{
+border-top:1px solid var(--line);
+padding:40px 20px;
+text-align:center;
+color:var(--muted);
+font-size:.8rem;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+.game-hud{
+grid-template-columns:repeat(3,1fr);
+}
+
+.search-area{
+grid-template-columns:1fr 1fr;
+}
+
+.category-grid{
+grid-template-columns:repeat(3,1fr);
+}
+
+.opportunity-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.quest-layout,
+.discovery{
+grid-template-columns:1fr;
+}
+
+.path-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.achievement-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+@media(max-width:700px){
+
+.hero{
+padding-top:45px;
+}
+
+.game-hud{
+grid-template-columns:1fr 1fr;
+}
+
+.search-area,
+.tracker-form{
+grid-template-columns:1fr;
+}
+
+.category-grid,
+.opportunity-grid,
+.path-grid,
+.achievement-grid{
+grid-template-columns:1fr;
+}
+
+.watch-stats,
+.tracker-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.tracker-item{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+HERO
+========================= -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="eyebrow">
+OPPORTUNITY QUEST / ATLAS
+</div>
+
+<h1>
+Don't wait for one opportunity.<br>
+<span>Build an opportunity pipeline.</span>
+</h1>
+
+<p>
+Search beyond traditional jobs. Discover programs, funding,
+fellowships, residencies, scholarships, accelerators, mentorships,
+international pathways and other routes that can change your trajectory.
+</p>
+
+
+<!-- GAME HUD -->
+
+<div class="game-hud">
+
+<div class="hud-card level-card">
+
+<strong id="levelText">
+Level 1
+</strong>
+
+<span id="rankText">
+Opportunity Scout
+</span>
+
+<div class="xp-wrap">
+
+<div class="xp-top">
+
+<span>Progress</span>
+
+<span id="xpText">
+0 / 100 XP
+</span>
+
+</div>
+
+<div class="xp-bar">
+<div
+class="xp-fill"
+id="xpFill">
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="hud-card">
+
+<strong id="scoreText">
+0
+</strong>
+
+<span>
+Opportunity Score
+</span>
+
+</div>
+
+
+<div class="hud-card">
+
+<strong id="streakText">
+0
+</strong>
+
+<span>
+Search Streak
+</span>
+
+</div>
+
+
+<div class="hud-card">
+
+<strong id="savedText">
+0
+</strong>
+
+<span>
+Watchlist
+</span>
+
+</div>
+
+
+<div class="hud-card">
+
+<strong id="appliedText">
+0
+</strong>
+
+<span>
+Applications
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<main class="dashboard">
+
+<div class="container">
+
+
+<!-- =========================
+QUEST CENTER
+========================= -->
+
+<section class="panel">
+
+<h2>
+🎮 Your Opportunity Quest
+</h2>
+
+<p class="panel-sub">
+The goal isn't to collect links. The goal is to move opportunities
+from discovery → research → preparation → application → outcome.
+</p>
+
+
+<div class="quest-layout">
+
+
+<div>
+
+<div class="quest" id="questSearch">
+
+<div class="quest-title">
+🔎 Explorer Quest
+</div>
+
+<div class="quest-description">
+Search the Atlas for an opportunity you have never considered before.
+</div>
+
+<div class="quest-bottom">
+
+<span class="quest-xp">
++15 XP
+</span>
+
+<button
+class="primary"
+onclick="completeQuest('search',15)">
+Complete
+</button>
+
+</div>
+
+</div>
+
+
+<div class="quest" id="questSave">
+
+<div class="quest-title">
+⭐ Build Your Watchlist
+</div>
+
+<div class="quest-description">
+Save 3 opportunities that could become useful in the future.
+</div>
+
+<div class="quest-bottom">
+
+<span class="quest-xp">
++25 XP
+</span>
+
+<button
+class="primary"
+onclick="completeQuest('save',25)">
+Complete
+</button>
+
+</div>
+
+</div>
+
+
+<div class="quest" id="questTrack">
+
+<div class="quest-title">
+📬 Build Your Pipeline
+</div>
+
+<div class="quest-description">
+Put at least one opportunity into your application tracker.
+</div>
+
+<div class="quest-bottom">
+
+<span class="quest-xp">
++30 XP
+</span>
+
+<button
+class="primary"
+onclick="completeQuest('track',30)">
+Complete
+</button>
+
+</div>
+
+</div>
+
+
+<div class="quest" id="questExplore">
+
+<div class="quest-title">
+🧭 Leave Your Comfort Zone
+</div>
+
+<div class="quest-description">
+Explore three different opportunity categories.
+</div>
+
+<div class="quest-bottom">
+
+<span class="quest-xp">
++35 XP
+</span>
+
+<button
+class="primary"
+onclick="completeQuest('categories',35)">
+Complete
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="challenge">
+
+<div class="challenge-label">
+Daily Opportunity Challenge
+</div>
+
+<h3>
+🎲 Find a Path You Didn't Know Existed
+</h3>
+
+<p>
+Use the search engine to investigate one pathway you would not
+normally search for: residency, fellowship, accelerator, mobility,
+grant, mentorship or another category outside your normal strategy.
+</p>
+
+<div class="challenge-reward">
+REWARD: +40 XP
+</div>
+
+<button
+class="gold"
+onclick="dailyChallenge()"
+style="margin-top:15px;">
+
+I Did It
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+JOURNEY
+========================= -->
+
+<section class="panel">
+
+<h2>
+🗺️ Opportunity Journey
+</h2>
+
+<p class="panel-sub">
+Every opportunity should move through a progression.
+</p>
+
+<div class="journey">
+
+<div class="journey-step active">
+<div class="journey-node">🔎</div>
+<div class="journey-label">Discover</div>
+<div class="journey-small">Find possibilities</div>
+</div>
+
+<div class="journey-step">
+<div class="journey-node">⭐</div>
+<div class="journey-label">Save</div>
+<div class="journey-small">Build your watchlist</div>
+</div>
+
+<div class="journey-step">
+<div class="journey-node">🧠</div>
+<div class="journey-label">Research</div>
+<div class="journey-small">Check eligibility</div>
+</div>
+
+<div class="journey-step">
+<div class="journey-node">🛠️</div>
+<div class="journey-label">Prepare</div>
+<div class="journey-small">Build your evidence</div>
+</div>
+
+<div class="journey-step">
+<div class="journey-node">📬</div>
+<div class="journey-label">Apply</div>
+<div class="journey-small">Take action</div>
+</div>
+
+<div class="journey-step">
+<div class="journey-node">🏆</div>
+<div class="journey-label">Outcome</div>
+<div class="journey-small">Learn + advance</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+SEARCH
+========================= -->
+
+<section class="panel">
+
+<h2>
+01 / Opportunity Discovery Engine
+</h2>
+
+<div class="search-area">
+
+<div class="field">
+
+<label>Search</label>
+
+<input
+id="search"
+placeholder="startup, scholarship, remote, Europe..."
+oninput="filterOpportunities()">
+
+</div>
+
+
+<div class="field">
+
+<label>Category</label>
+
+<select
+id="categoryFilter"
+onchange="filterOpportunities()">
+
+<option value="all">
+All Categories
+</option>
+
+<option value="Residency">
+Residency
+</option>
+
+<option value="Startup">
+Startup
+</option>
+
+<option value="Accelerator">
+Accelerator
+</option>
+
+<option value="Funding">
+Funding
+</option>
+
+<option value="Scholarship">
+Scholarship
+</option>
+
+<option value="Fellowship">
+Fellowship
+</option>
+
+<option value="Mentorship">
+Mentorship
+</option>
+
+<option value="Internship">
+Internship
+</option>
+
+<option value="Volunteering">
+Volunteering
+</option>
+
+<option value="Education">
+Education
+</option>
+
+<option value="Technology">
+Technology
+</option>
+
+<option value="Mobility">
+Mobility
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Pathway</label>
+
+<select
+id="typeFilter"
+onchange="filterOpportunities()">
+
+<option value="all">
+Everything
+</option>
+
+<option value="funded">
+Funding / Financial
+</option>
+
+<option value="career">
+Career / Experience
+</option>
+
+<option value="global">
+International
+</option>
+
+<option value="business">
+Business Building
+</option>
+
+<option value="learning">
+Learning
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<button
+class="primary"
+onclick="surpriseMe()">
+
+🎲 Surprise Me
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+CATEGORIES
+========================= -->
+
+<section class="panel">
+
+<h2>
+02 / Opportunity Worlds
+</h2>
+
+<p class="panel-sub">
+Exploring a new category earns exploration progress.
+</p>
+
+<div class="category-grid">
+
+<div class="category active"
+onclick="quickCategory('all',this)">
+<strong>🌎 Everything</strong>
+<span>Explore widely</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Residency',this)">
+<strong>🏠 Residencies</strong>
+<span>Live + build + learn</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Startup',this)">
+<strong>🚀 Startups</strong>
+<span>Build a company</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Funding',this)">
+<strong>💰 Funding</strong>
+<span>Capital + grants</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Fellowship',this)">
+<strong>🎓 Fellowships</strong>
+<span>Research + leadership</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Internship',this)">
+<strong>💼 Internships</strong>
+<span>Experience + skills</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Scholarship',this)">
+<strong>📚 Scholarships</strong>
+<span>Education funding</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Mentorship',this)">
+<strong>🧠 Mentorship</strong>
+<span>Learn from experts</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Volunteering',this)">
+<strong>🌱 Volunteering</strong>
+<span>Experience + service</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Technology',this)">
+<strong>💻 Technology</strong>
+<span>Tools + programs</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Mobility',this)">
+<strong>✈️ Mobility</strong>
+<span>International pathways</span>
+</div>
+
+<div class="category"
+onclick="quickCategory('Education',this)">
+<strong>🎓 Education</strong>
+<span>Study + learning</span>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+OPPORTUNITIES
+========================= -->
+
+<section class="panel">
+
+<div class="opportunity-header">
+
+<h2>
+03 / Opportunity Library
+</h2>
+
+<div
+class="result-count"
+id="resultCount">
+Showing opportunities
+</div>
+
+</div>
+
+<div
+class="opportunity-grid"
+id="opportunityGrid">
+</div>
+
+</section>
+
+
+<!-- =========================
+WATCHLIST
+========================= -->
+
+<section class="panel">
+
+<h2>
+04 / Your Opportunity Watchlist
+</h2>
+
+<p class="panel-sub">
+Don't discard an opportunity simply because it isn't right today.
+</p>
+
+
+<div class="watch-stats">
+
+<div class="watch-stat">
+
+<strong id="watchCount">
+0
+</strong>
+
+<span>
+Saved
+</span>
+
+</div>
+
+
+<div class="watch-stat">
+
+<strong id="categoryCount">
+0
+</strong>
+
+<span>
+Categories Explored
+</span>
+
+</div>
+
+
+<div class="watch-stat">
+
+<strong id="missionCount">
+0
+</strong>
+
+<span>
+Missions
+</span>
+
+</div>
+
+
+<div class="watch-stat">
+
+<strong id="proofCount">
+0
+</strong>
+
+<span>
+Proof Points
+</span>
+
+</div>
+
+</div>
+
+
+<div
+class="opportunity-grid"
+id="savedGrid">
+
+<div class="warning">
+
+<h3>
+Your watchlist is empty
+</h3>
+
+<p>
+Save possibilities that may become valuable later.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+TRACKER
+========================= -->
+
+<section class="panel">
+
+<h2>
+05 / Application Pipeline
+</h2>
+
+<p class="panel-sub">
+Turn bookmarks into movement.
+</p>
+
+
+<div class="tracker-grid">
+
+<div class="tracker-stat">
+
+<strong id="researchCount">
+0
+</strong>
+
+<span>
+Researching
+</span>
+
+</div>
+
+
+<div class="tracker-stat">
+
+<strong id="preparingCount">
+0
+</strong>
+
+<span>
+Preparing
+</span>
+
+</div>
+
+
+<div class="tracker-stat">
+
+<strong id="appliedCount">
+0
+</strong>
+
+<span>
+Applied
+</span>
+
+</div>
+
+
+<div class="tracker-stat">
+
+<strong id="wonCount">
+0
+</strong>
+
+<span>
+Won
+</span>
+
+</div>
+
+</div>
+
+
+<div class="tracker-form">
+
+<input
+id="trackName"
+placeholder="Opportunity name">
+
+<select id="trackStatus">
+
+<option>
+Researching
+</option>
+
+<option>
+Preparing
+</option>
+
+<option>
+Applied
+</option>
+
+<option>
+Rejected
+</option>
+
+<option>
+Won
+</option>
+
+</select>
+
+<input
+id="trackDate"
+type="date">
+
+<button
+class="primary"
+onclick="addApplication()">
+
+Add
+
+</button>
+
+</div>
+
+
+<div
+class="tracker-list"
+id="trackerList">
+</div>
+
+</section>
+
+
+<!-- =========================
+ACHIEVEMENTS
+========================= -->
+
+<section class="panel">
+
+<h2>
+06 / Achievement Hall
+</h2>
+
+<p class="panel-sub">
+Your progress is about becoming better at finding and pursuing possibilities.
+</p>
+
+<div
+class="achievement-grid"
+id="achievementGrid">
+</div>
+
+</section>
+
+
+<!-- =========================
+STRATEGY
+========================= -->
+
+<section class="panel">
+
+<h2>
+07 / Opportunity Intelligence
+</h2>
+
+<div class="discovery">
+
+<div class="discovery-box">
+
+<h3>
+🔄 Think in Pipelines
+</h3>
+
+<p>
+One application is an event. A pipeline is a system. The objective
+is to continuously have opportunities at different stages instead
+of betting everything on one possibility.
+</p>
+
+<div class="path-grid">
+
+<div class="path">
+<strong>Career</strong>
+<span>Jobs → internships → apprenticeships</span>
+</div>
+
+<div class="path">
+<strong>Education</strong>
+<span>Scholarships → fellowships → exchanges</span>
+</div>
+
+<div class="path">
+<strong>Business</strong>
+<span>Accelerators → grants → investors</span>
+</div>
+
+<div class="path">
+<strong>Global</strong>
+<span>Residencies → mobility → visas</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="discovery-box">
+
+<h3>
+🧠 The Atlas Rule
+</h3>
+
+<p>
+If your current strategy produces the same results repeatedly,
+change the search category—not simply the amount of effort.
+</p>
+
+<div class="warning" style="margin-top:15px;">
+
+<h3>
+Your next move
+</h3>
+
+<p id="nextMove">
+Explore a category you have never searched before.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RESET -->
+
+<section class="panel">
+
+<h2>
+⚙️ Progress Controls
+</h2>
+
+<button
+class="danger"
+onclick="resetGame()">
+
+Reset Game Progress
+
+</button>
+
+</section>
+
+
+</div>
+
+</main>
+
+
+<footer>
+
+Opportunity Atlas • Search Wider • Build Options • Keep Moving
+
+</footer>
+
+
+<div id="notification"></div>
+
+
+<script>
+
+
+/* =========================================================
+OPPORTUNITY DATABASE
+========================================================= */
+
+const opportunities = [
+
+{
+name:"Estonia e-Residency",
+category:"Residency",
+type:"business",
+location:"Estonia / Global",
+eligibility:"International founders",
+description:"Digital identity and business infrastructure that can help eligible people establish and manage an EU company remotely.",
+tags:["EU","Business","Remote","Founder"],
+url:"https://www.e-resident.gov.ee/"
+},
+
+{
+name:"Estonia Startup Visa",
+category:"Startup",
+type:"global",
+location:"Estonia",
+eligibility:"Non-EU startup founders",
+description:"A pathway for eligible non-EU founders with innovative, scalable startups to relocate and build in Estonia.",
+tags:["Visa","Startup","Europe"],
+url:"https://startupestonia.ee/visa"
+},
+
+{
+name:"Techstars Accelerators",
+category:"Accelerator",
+type:"business",
+location:"Global",
+eligibility:"Early-stage startups",
+description:"Mentorship-driven accelerator programs connecting startups with mentors, investors, partners and capital.",
+tags:["Startup","Mentorship","Capital"],
+url:"https://www.techstars.com/accelerators"
+},
+
+{
+name:"Antler",
+category:"Residency",
+type:"business",
+location:"Multiple global locations",
+eligibility:"Founders / builders",
+description:"Founder programs bringing builders together to develop companies, access networks and pursue investment.",
+tags:["Founder","Residency","Investment"],
+url:"https://www.antler.co/"
+},
+
+{
+name:"Y Combinator",
+category:"Accelerator",
+type:"business",
+location:"Global",
+eligibility:"Startups",
+description:"A major startup accelerator with applications submitted online for its batches.",
+tags:["Startup","Funding","Global"],
+url:"https://www.ycombinator.com/apply/"
+},
+
+{
+name:"Google for Startups",
+category:"Startup",
+type:"business",
+location:"Global",
+eligibility:"Varies by program",
+description:"Google programs, technology, communities and specialized initiatives designed to help startups build and scale.",
+tags:["Google","Startup","Technology"],
+url:"https://startup.google.com/"
+},
+
+{
+name:"Microsoft for Startups",
+category:"Startup",
+type:"business",
+location:"Global",
+eligibility:"Eligible startups",
+description:"Startup resources including technology, AI capabilities, credits and go-to-market support.",
+tags:["Microsoft","AI","Startup"],
+url:"https://www.microsoft.com/en-us/startups/"
+},
+
+{
+name:"EIC Accelerator",
+category:"Funding",
+type:"funded",
+location:"Europe",
+eligibility:"Startups and SMEs",
+description:"European Innovation Council support combining grants and potential investment for eligible high-impact innovations.",
+tags:["Grant","Investment","Europe"],
+url:"https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en"
+},
+
+{
+name:"Outreachy",
+category:"Internship",
+type:"career",
+location:"Remote / Global",
+eligibility:"Eligibility varies",
+description:"Paid, remote open-source internships covering programming, research, UX, documentation, design, data science and more.",
+tags:["Remote","Open Source","Paid"],
+url:"https://www.outreachy.org/"
+},
+
+{
+name:"Linux Foundation Mentorship",
+category:"Mentorship",
+type:"career",
+location:"Remote / Global",
+eligibility:"Developers and contributors",
+description:"Structured mentorship opportunities where participants contribute to open-source projects under experienced mentors.",
+tags:["Open Source","Mentorship","Tech"],
+url:"https://www.linuxfoundation.org/about/mentorship-programs/"
+},
+
+{
+name:"UN Volunteers",
+category:"Volunteering",
+type:"global",
+location:"Global / Online",
+eligibility:"Varies by assignment",
+description:"International and online volunteering opportunities supporting UN system initiatives and development work.",
+tags:["UN","Global","Volunteer"],
+url:"https://www.unv.org/become-volunteer"
+},
+
+{
+name:"European Solidarity Corps",
+category:"Volunteering",
+type:"global",
+location:"Europe",
+eligibility:"Generally 18–30; varies",
+description:"Volunteering opportunities across areas including digital technology, health, environment and humanitarian work.",
+tags:["Europe","Volunteer","Youth"],
+url:"https://youth.europa.eu/solidarity_en"
+},
+
+{
+name:"Chevening Scholarships",
+category:"Scholarship",
+type:"funded",
+location:"United Kingdom",
+eligibility:"Participating-country applicants",
+description:"Funded one-year UK master's scholarships for emerging leaders.",
+tags:["UK","Masters","Funding"],
+url:"https://www.chevening.org/scholarships/"
+},
+
+{
+name:"DAAD Scholarship Database",
+category:"Scholarship",
+type:"learning",
+location:"Germany / Global",
+eligibility:"Students, graduates and researchers",
+description:"Searchable database containing DAAD funding and selected external funding opportunities.",
+tags:["Germany","Study","Research"],
+url:"https://www.daad.org/en/find-funding/scholarship-database/"
+},
+
+{
+name:"Schwarzman Scholars",
+category:"Scholarship",
+type:"funded",
+location:"China",
+eligibility:"Graduate applicants",
+description:"Fully funded master's-level global affairs program at Tsinghua University.",
+tags:["China","Leadership","Masters"],
+url:"https://www.schwarzmanscholars.org/"
+},
+
+{
+name:"GitHub Student Developer Pack",
+category:"Technology",
+type:"learning",
+location:"Global",
+eligibility:"Verified students",
+description:"A collection of developer tools, services and educational resources available to eligible students.",
+tags:["Students","Developer","Tools"],
+url:"https://education.github.com/pack"
+},
+
+{
+name:"Erasmus+",
+category:"Mobility",
+type:"global",
+location:"Europe / Partner countries",
+eligibility:"Varies by program",
+description:"A major European framework covering study, training, youth and cooperation opportunities.",
+tags:["Europe","Study","Mobility"],
+url:"https://erasmus-plus.ec.europa.eu/"
+},
+
+{
+name:"Erasmus for Young Entrepreneurs",
+category:"Mobility",
+type:"business",
+location:"Europe",
+eligibility:"New / aspiring entrepreneurs",
+description:"Cross-border exchange allowing entrepreneurs to learn from experienced entrepreneurs.",
+tags:["Entrepreneur","Europe","Exchange"],
+url:"https://www.erasmus-entrepreneurs.eu/"
+},
+
+{
+name:"Google Summer of Code",
+category:"Internship",
+type:"career",
+location:"Global / Remote",
+eligibility:"Eligible contributors",
+description:"A global open-source development program connecting contributors with open-source organizations.",
+tags:["Open Source","Coding","Global"],
+url:"https://summerofcode.withgoogle.com/"
+},
+
+{
+name:"SBA Funding Programs",
+category:"Funding",
+type:"funded",
+location:"United States",
+eligibility:"U.S. small businesses varies",
+description:"U.S. Small Business Administration resources covering loans, grants and other funding pathways.",
+tags:["USA","Business","Funding"],
+url:"https://www.sba.gov/funding-programs"
+},
+
+{
+name:"NSF America's Seed Fund",
+category:"Funding",
+type:"funded",
+location:"United States",
+eligibility:"Eligible technology startups",
+description:"Funding pathway for deep-tech and science-based startups developing technologies with commercial potential.",
+tags:["USA","Deep Tech","Research"],
+url:"https://seedfund.nsf.gov/"
+},
+
+{
+name:"Fulbright Foreign Student Program",
+category:"Scholarship",
+type:"funded",
+location:"United States",
+eligibility:"International students varies",
+description:"Graduate-level study and research opportunities in the United States for eligible international applicants.",
+tags:["USA","Graduate","International"],
+url:"https://foreign.fulbrightonline.org/"
+},
+
+{
+name:"Marie Skłodowska-Curie Actions",
+category:"Fellowship",
+type:"learning",
+location:"Europe / Global",
+eligibility:"Researchers varies",
+description:"European research and mobility opportunities supporting researchers at different career stages.",
+tags:["Research","Europe","Science"],
+url:"https://marie-sklodowska-curie-actions.ec.europa.eu/"
+},
+
+{
+name:"Mozilla Foundation",
+category:"Technology",
+type:"business",
+location:"Global",
+eligibility:"Varies by program",
+description:"Programs and initiatives around technology, open internet, responsible innovation and builders.",
+tags:["Technology","Open Web","Innovation"],
+url:"https://www.mozillafoundation.org/"
+}
+
+];
+
+
+/* =========================================================
+GAME STATE
+========================================================= */
+
+let game =
+JSON.parse(
+localStorage.getItem("opportunityAtlasGame")
+) || {
+
+xp:0,
+
+streak:0,
+
+saved:[],
+
+applications:[],
+
+completedQuests:[],
+
+exploredCategories:[],
+
+dailyChallenge:false,
+
+lastActive:null
+
+};
+
+
+/* =========================================================
+LEVELS
+========================================================= */
+
+const levels = [
+
+{
+level:1,
+name:"Opportunity Scout",
+min:0,
+next:100
+},
+
+{
+level:2,
+name:"Pathfinder",
+min:100,
+next:250
+},
+
+{
+level:3,
+name:"Opportunity Builder",
+min:250,
+next:500
+},
+
+{
+level:4,
+name:"Strategic Explorer",
+min:500,
+next:800
+},
+
+{
+level:5,
+name:"Opportunity Architect",
+min:800,
+next:1200
+},
+
+{
+level:6,
+name:"Possibility Master",
+min:1200,
+next:1800
+}
+
+];
+
+
+function getLevel(){
+
+let current = levels[0];
+
+levels.forEach(level=>{
+
+if(game.xp >= level.min){
+
+current = level;
+
+}
+
+});
+
+return current;
+
+}
+
+
+/* =========================================================
+SAVE
+========================================================= */
+
+function saveGame(){
+
+localStorage.setItem(
+"opportunityAtlasGame",
+JSON.stringify(game)
+);
+
+}
+
+
+/* =========================================================
+NOTIFICATIONS
+========================================================= */
+
+function notify(message){
+
+const box =
+document.getElementById("notification");
+
+box.innerText = message;
+
+box.classList.add("show");
+
+setTimeout(
+()=>{
+box.classList.remove("show");
+},
+2500
+);
+
+}
+
+
+/* =========================================================
+XP
+========================================================= */
+
+function addXP(amount,reason){
+
+const oldLevel =
+getLevel().level;
+
+game.xp += amount;
+
+saveGame();
+
+const newLevel =
+getLevel().level;
+
+if(newLevel > oldLevel){
+
+notify(
+"🏆 LEVEL UP! You reached Level "
++
+newLevel
++
+" — "
++
+getLevel().name
+);
+
+}
+else{
+
+notify(
+"⭐ +"
++
+amount
++
+" XP"
++
+(reason ? " • " + reason : "")
+);
+
+}
+
+update();
+
+}
+
+
+/* =========================================================
+OPPORTUNITY SCORE
+========================================================= */
+
+function opportunityScore(){
+
+return (
+
+game.xp
+
++
+(game.saved.length * 5)
+
++
+(game.applications.length * 15)
+
++
+(game.exploredCategories.length * 10)
+
+);
+
+}
+
+
+/* =========================================================
+DAILY ACTIVITY
+========================================================= */
+
+function updateStreak(){
+
+const today =
+new Date().toDateString();
+
+if(game.lastActive !== today){
+
+if(game.lastActive){
+
+game.streak++;
+
+}
+else{
+
+game.streak = 1;
+
+}
+
+game.lastActive = today;
+
+saveGame();
+
+}
+
+}
+
+
+/* =========================================================
+QUESTS
+========================================================= */
+
+function completeQuest(type,xp){
+
+if(game.completedQuests.includes(type)){
+
+notify(
+"✓ Quest already completed."
+);
+
+return;
+
+}
+
+if(
+type === "save"
+&&
+game.saved.length < 3
+){
+
+notify(
+"⭐ Save at least 3 opportunities first."
+);
+
+return;
+
+}
+
+if(
+type === "track"
+&&
+game.applications.length < 1
+){
+
+notify(
+"📬 Track at least one opportunity first."
+);
+
+return;
+
+}
+
+if(
+type === "categories"
+&&
+game.exploredCategories.length < 3
+){
+
+notify(
+"🧭 Explore 3 categories first."
+);
+
+return;
+
+}
+
+game.completedQuests.push(type);
+
+addXP(
+xp,
+"Quest complete"
+);
+
+update();
+
+}
+
+
+/* =========================================================
+DAILY CHALLENGE
+========================================================= */
+
+function dailyChallenge(){
+
+if(game.dailyChallenge){
+
+notify(
+"🎲 Daily challenge already completed."
+);
+
+return;
+
+}
+
+game.dailyChallenge = true;
+
+addXP(
+40,
+"Daily Challenge"
+);
+
+saveGame();
+
+}
+
+
+/* =========================================================
+SEARCH
+========================================================= */
+
+function filterOpportunities(){
+
+updateStreak();
+
+const query =
+document
+.getElementById("search")
+.value
+.toLowerCase();
+
+const category =
+document
+.getElementById("categoryFilter")
+.value;
+
+const type =
+document
+.getElementById("typeFilter")
+.value;
+
+
+const filtered =
+opportunities.filter(item=>{
+
+const searchable = (
+
+item.name
++
+" "
++
+item.category
++
+" "
++
+item.location
++
+" "
++
+item.eligibility
++
+" "
++
+item.description
++
+" "
++
+item.tags.join(" ")
+
+).toLowerCase();
+
+
+return (
+
+(!query || searchable.includes(query))
+
+&&
+
+(category === "all" || item.category === category)
+
+&&
+
+(type === "all" || item.type === type)
+
+);
+
+});
+
+
+renderOpportunities(filtered);
+
+update();
+
+}
+
+
+function quickCategory(category,element){
+
+document
+.querySelectorAll(".category")
+.forEach(
+item=>item.classList.remove("active")
+);
+
+element.classList.add("active");
+
+document
+.getElementById("categoryFilter")
+.value =
+category;
+
+
+if(
+category !== "all"
+&&
+!game.exploredCategories.includes(category)
+){
+
+game.exploredCategories.push(category);
+
+addXP(
+10,
+"New category explored"
+);
+
+saveGame();
+
+}
+
+
+filterOpportunities();
+
+}
+
+
+function surpriseMe(){
+
+const random =
+opportunities[
+Math.floor(
+Math.random() *
+opportunities.length
+)
+];
+
+
+document
+.getElementById("search")
+.value = "";
+
+document
+.getElementById("categoryFilter")
+.value =
+random.category;
+
+document
+.getElementById("typeFilter")
+.value =
+"all";
+
+
+filterOpportunities();
+
+
+window.scrollTo({
+
+top:
+document
+.getElementById("opportunityGrid")
+.offsetTop - 80,
+
+behavior:"smooth"
+
+});
+
+
+notify(
+"🎲 New pathway discovered: "
++
+random.name
+);
+
+}
+
+
+/* =========================================================
+RENDER OPPORTUNITIES
+========================================================= */
+
+function renderOpportunities(list){
+
+const grid =
+document.getElementById(
+"opportunityGrid"
+);
+
+document.getElementById(
+"resultCount"
+).textContent =
+"Showing "
++
+list.length
++
+" opportunities";
+
+
+if(!list.length){
+
+grid.innerHTML = `
+
+<div class="warning">
+
+<h3>
+No exact matches
+</h3>
+
+<p>
+Try a broader search or explore another category.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+list.map(item=>{
+
+const index =
+opportunities.indexOf(item);
+
+const saved =
+game.saved.includes(index);
+
+return `
+
+<article class="opportunity">
+
+<div class="opportunity-top">
+
+<div class="tag">
+${item.category}
+</div>
+
+<button
+class="save ${saved ? "saved":""}"
+onclick="toggleSave(${index})">
+
+${saved ? "★":"☆"}
+
+</button>
+
+</div>
+
+
+<h3>
+${item.name}
+</h3>
+
+
+<p>
+${item.description}
+</p>
+
+
+<div class="meta">
+
+<span>
+${item.location}
+</span>
+
+<span>
+${item.eligibility}
+</span>
+
+${item.tags.map(
+tag=>`<span>${tag}</span>`
+).join("")}
+
+</div>
+
+
+<div class="opportunity-footer">
+
+<a
+href="${item.url}"
+target="_blank"
+rel="noopener noreferrer">
+
+Official Site
+
+</a>
+
+
+<button
+onclick="trackOpportunity(${index})">
+
+📬 Track
+
+</button>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =========================================================
+WATCHLIST
+========================================================= */
+
+function toggleSave(index){
+
+const position =
+game.saved.indexOf(index);
+
+
+if(position >= 0){
+
+game.saved.splice(position,1);
+
+notify(
+"Removed from watchlist."
+);
+
+}
+else{
+
+game.saved.push(index);
+
+addXP(
+5,
+"Opportunity saved"
+);
+
+}
+
+
+saveGame();
+
+renderSaved();
+
+filterOpportunities();
+
+update();
+
+}
+
+
+function renderSaved(){
+
+const grid =
+document.getElementById("savedGrid");
+
+
+if(!game.saved.length){
+
+grid.innerHTML = `
+
+<div class="warning">
+
+<h3>
+Your watchlist is empty
+</h3>
+
+<p>
+Save possibilities that may become valuable later.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+game.saved.map(index=>{
+
+const item =
+opportunities[index];
+
+return `
+
+<article class="opportunity">
+
+<div class="opportunity-top">
+
+<div class="tag">
+${item.category}
+</div>
+
+<button
+class="save saved"
+onclick="toggleSave(${index})">
+
+★
+
+</button>
+
+</div>
+
+<h3>
+${item.name}
+</h3>
+
+<p>
+${item.description}
+</p>
+
+<div class="meta">
+
+<span>
+${item.location}
+</span>
+
+${item.tags.map(
+tag=>`<span>${tag}</span>`
+).join("")}
+
+</div>
+
+<div class="opportunity-footer">
+
+<a
+href="${item.url}"
+target="_blank"
+rel="noopener noreferrer">
+
+Open
+
+</a>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =========================================================
+TRACK OPPORTUNITY
+========================================================= */
+
+function trackOpportunity(index){
+
+const item =
+opportunities[index];
+
+document
+.getElementById("trackName")
+.value =
+item.name;
+
+
+document
+.getElementById("trackName")
+.scrollIntoView({
+
+behavior:"smooth",
+block:"center"
+
+});
+
+
+notify(
+"📬 Ready to add "
++
+item.name
++
+" to your pipeline."
+);
+
+}
+
+
+/* =========================================================
+APPLICATION TRACKER
+========================================================= */
+
+function addApplication(){
+
+const name =
+document
+.getElementById("trackName")
+.value
+.trim();
+
+const status =
+document
+.getElementById("trackStatus")
+.value;
+
+const date =
+document
+.getElementById("trackDate")
+.value;
+
+
+if(!name){
+
+notify(
+"Enter an opportunity name first."
+);
+
+return;
+
+}
+
+
+game.applications.push({
+
+name:name,
+
+status:status,
+
+date:date
+
+});
+
+
+addXP(
+15,
+"Pipeline updated"
+);
+
+saveGame();
+
+document
+.getElementById("trackName")
+.value =
+"";
+
+renderApplications();
+
+update();
+
+}
+
+
+function removeApplication(index){
+
+game.applications.splice(index,1);
+
+saveGame();
+
+renderApplications();
+
+update();
+
+}
+
+
+function renderApplications(){
+
+const list =
+document.getElementById(
+"trackerList"
+);
+
+
+if(!game.applications.length){
+
+list.innerHTML = `
+
+<div class="warning">
+
+<h3>
+Your pipeline is empty
+</h3>
+
+<p>
+Track opportunities here so your search becomes a system.
+</p>
+
+</div>
+
+`;
+
+}
+else{
+
+list.innerHTML =
+game.applications.map(
+(item,index)=>{
+
+const cls =
+item.status
+.toLowerCase()
+.replace(/\s/g,"");
+
+
+return `
+
+<div class="tracker-item">
+
+<strong>
+${escapeHTML(item.name)}
+</strong>
+
+<span>
+${item.date || "No date"}
+</span>
+
+<span>
+
+<span
+class="status ${cls}">
+
+${item.status}
+
+</span>
+
+</span>
+
+<button
+class="danger"
+onclick="removeApplication(${index})">
+
+Remove
+
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+updateTrackerStats();
+
+}
+
+
+function updateTrackerStats(){
+
+document
+.getElementById("researchCount")
+.textContent =
+game.applications.filter(
+x=>x.status==="Researching"
+).length;
+
+
+document
+.getElementById("preparingCount")
+.textContent =
+game.applications.filter(
+x=>x.status==="Preparing"
+).length;
+
+
+document
+.getElementById("appliedCount")
+.textContent =
+game.applications.filter(
+x=>x.status==="Applied"
+).length;
+
+
+document
+.getElementById("wonCount")
+.textContent =
+game.applications.filter(
+x=>x.status==="Won"
+).length;
+
+}
+
+
+/* =========================================================
+ACHIEVEMENTS
+========================================================= */
+
+function updateAchievements(){
+
+const achievements = [
+
+{
+icon:"👣",
+name:"First Discovery",
+description:"Earn your first XP.",
+unlocked:game.xp >= 1
+},
+
+{
+icon:"⭐",
+name:"Collector",
+description:"Save 3 opportunities.",
+unlocked:game.saved.length >= 3
+},
+
+{
+icon:"🧭",
+name:"Explorer",
+description:"Explore 3 categories.",
+unlocked:game.exploredCategories.length >= 3
+},
+
+{
+icon:"📬",
+name:"Pipeline Builder",
+description:"Track your first opportunity.",
+unlocked:game.applications.length >= 1
+},
+
+{
+icon:"⚡",
+name:"Action Taker",
+description:"Reach 250 XP.",
+unlocked:game.xp >= 250
+},
+
+{
+icon:"🌎",
+name:"Wide Search",
+description:"Explore 6 categories.",
+unlocked:game.exploredCategories.length >= 6
+},
+
+{
+icon:"🏆",
+name:"Strategist",
+description:"Reach Level 4.",
+unlocked:getLevel().level >= 4
+},
+
+{
+icon:"👑",
+name:"Opportunity Architect",
+description:"Reach Level 6.",
+unlocked:getLevel().level >= 6
+},
+
+{
+icon:"🎯",
+name:"Daily Challenger",
+description:"Complete a daily challenge.",
+unlocked:game.dailyChallenge
+}
+
+];
+
+
+const grid =
+document.getElementById(
+"achievementGrid"
+);
+
+
+grid.innerHTML =
+achievements.map(a=>`
+
+<div class="achievement ${a.unlocked ? "":"locked"}">
+
+<div class="achievement-icon">
+${a.icon}
+</div>
+
+<div>
+
+<strong>
+${a.name}
+${a.unlocked ? " ✓":" 🔒"}
+</strong>
+
+<span>
+${a.description}
+</span>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =========================================================
+UPDATE UI
+========================================================= */
+
+function update(){
+
+const lvl =
+getLevel();
+
+
+document
+.getElementById("levelText")
+.textContent =
+"Level " + lvl.level;
+
+
+document
+.getElementById("rankText")
+.textContent =
+lvl.name;
+
+
+document
+.getElementById("scoreText")
+.textContent =
+opportunityScore();
+
+
+document
+.getElementById("streakText")
+.textContent =
+game.streak;
+
+
+document
+.getElementById("savedText")
+.textContent =
+game.saved.length;
+
+
+document
+.getElementById("appliedText")
+.textContent =
+game.applications.length;
+
+
+document
+.getElementById("watchCount")
+.textContent =
+game.saved.length;
+
+
+document
+.getElementById("categoryCount")
+.textContent =
+game.exploredCategories.length;
+
+
+document
+.getElementById("missionCount")
+.textContent =
+game.completedQuests.length;
+
+
+document
+.getElementById("proofCount")
+.textContent =
+game.applications.length;
+
+
+const currentProgress =
+game.xp - lvl.min;
+
+const needed =
+lvl.next - lvl.min;
+
+
+const percentage =
+Math.min(
+100,
+(currentProgress / needed) * 100
+);
+
+
+document
+.getElementById("xpFill")
+.style.width =
+percentage + "%";
+
+
+document
+.getElementById("xpText")
+.textContent =
+game.xp
++
+" / "
++
+lvl.next
++
+" XP";
+
+
+/* QUEST STATES */
+
+["search","save","track","categories"]
+.forEach(type=>{
+
+const el =
+document.getElementById(
+"quest"
++
+type.charAt(0).toUpperCase()
++
+type.slice(1)
+);
+
+if(
+game.completedQuests.includes(type)
+){
+
+el.classList.add("complete");
+
+}
+
+});
+
+
+/* NEXT MOVE */
+
+let next =
+"Explore a category you have never searched before.";
+
+
+if(game.saved.length < 3){
+
+next =
+"Save three opportunities to begin building your watchlist.";
+
+}
+else if(game.applications.length < 1){
+
+next =
+"Move one saved opportunity into your application pipeline.";
+
+}
+else if(
+game.exploredCategories.length < 3
+){
+
+next =
+"Explore more categories to widen your opportunity surface.";
+
+}
+else if(game.xp < 250){
+
+next =
+"Keep completing quests until you reach Builder level.";
+
+}
+else{
+
+next =
+"Turn one opportunity into a real-world action.";
+
+}
+
+
+document
+.getElementById("nextMove")
+.textContent =
+next;
+
+
+updateAchievements();
+
+}
+
+
+/* =========================================================
+SECURITY
+========================================================= */
+
+function escapeHTML(text){
+
+const div =
+document.createElement("div");
+
+div.textContent =
+text;
+
+return div.innerHTML;
+
+}
+
+
+/* =========================================================
+RESET
+========================================================= */
+
+function resetGame(){
+
+if(
+!confirm(
+"Reset all Opportunity Atlas game progress?"
+)
+){
+
+return;
+
+}
+
+
+localStorage.removeItem(
+"opportunityAtlasGame"
+);
+
+location.reload();
+
+}
+
+
+/* =========================================================
+INITIALIZE
+========================================================= */
+
+updateStreak();
+
+renderOpportunities(
+opportunities
+);
+
+renderSaved();
+
+renderApplications();
+
+update();
+
+</script>
+
+</body>
+</html>
+```
