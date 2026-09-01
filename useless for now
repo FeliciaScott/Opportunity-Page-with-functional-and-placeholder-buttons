@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateU Student Platform</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:#081826;
+color:#f5ecd9;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body::before{
+content:"";
+position:fixed;
+width:700px;
+height:700px;
+background:radial-gradient(circle, rgba(255,245,220,0.08), transparent 70%);
+top:-250px;
+right:-100px;
+z-index:-1;
+}
+
+body::after{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle, rgba(19,50,89,0.8), transparent 70%);
+bottom:-200px;
+left:-100px;
+z-index:-1;
+}
+
+/* HEADER */
+
+header{
+padding:22px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#081826;
+border-bottom:1px solid rgba(255,255,255,0.08);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:1.8rem;
+font-weight:800;
+color:#f7dfb3;
+}
+
+nav{
+display:flex;
+gap:25px;
+}
+
+nav a{
+text-decoration:none;
+color:#f1e6d2;
+font-size:.95rem;
+transition:.3s;
+}
+
+nav a:hover{
+color:#d5b37b;
+}
+
+/* HERO */
+
+.hero{
+padding:70px 6%;
+display:grid;
+grid-template-columns:1.2fr .9fr;
+gap:50px;
+align-items:center;
+}
+
+.hero h1{
+font-size:4rem;
+line-height:1.05;
+margin-bottom:20px;
+}
+
+.hero span{
+color:#d7b27b;
+}
+
+.hero p{
+color:#d8d0c3;
+max-width:650px;
+margin-bottom:30px;
+font-size:1.05rem;
+}
+
+.hero-buttons{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 24px;
+border-radius:14px;
+border:none;
+cursor:pointer;
+font-weight:700;
+transition:.3s;
+}
+
+.primary{
+background:#e3c493;
+color:#081826;
+}
+
+.secondary{
+background:#132c44;
+color:#f5ecd9;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.btn:hover{
+transform:translateY(-5px);
+}
+
+/* SIGN IN */
+
+.login-panel{
+background:#0d2234;
+padding:35px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.login-panel h2{
+margin-bottom:20px;
+color:#f7dfb3;
+}
+
+.login-panel input{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+border:none;
+border-radius:14px;
+background:#10283d;
+color:white;
+}
+
+.login-panel button{
+width:100%;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+padding:60px 6%;
+}
+
+.section-title{
+font-size:2.5rem;
+margin-bottom:15px;
+}
+
+.section-sub{
+color:#cfc5b6;
+margin-bottom:40px;
+max-width:800px;
+}
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:280px 1fr;
+gap:30px;
+}
+
+.sidebar{
+background:#0d2234;
+border-radius:25px;
+padding:30px;
+border:1px solid rgba(255,255,255,0.05);
+height:fit-content;
+}
+
+.profile{
+text-align:center;
+margin-bottom:30px;
+}
+
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#e3c493;
+margin:auto;
+margin-bottom:15px;
+}
+
+.sidebar h3{
+margin-bottom:5px;
+}
+
+.level{
+color:#d4b27d;
+font-size:.9rem;
+}
+
+.side-menu{
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.side-menu div{
+background:#122a40;
+padding:14px;
+border-radius:14px;
+cursor:pointer;
+transition:.3s;
+}
+
+.side-menu div:hover{
+background:#193550;
+}
+
+.main-dashboard{
+display:grid;
+gap:25px;
+}
+
+/* CARDS */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.stat-card{
+background:#0d2234;
+padding:28px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.stat-card h2{
+font-size:2.4rem;
+color:#f7dfb3;
+margin-bottom:8px;
+}
+
+.stat-card p{
+color:#d0c5b4;
+}
+
+/* LESSONS */
+
+.lesson-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.lesson-card{
+background:#0d2234;
+padding:25px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,0.05);
+transition:.3s;
+}
+
+.lesson-card:hover{
+transform:translateY(-6px);
+}
+
+.lesson-tag{
+display:inline-block;
+padding:6px 12px;
+border-radius:999px;
+background:#193550;
+color:#f7dfb3;
+font-size:.8rem;
+margin-bottom:15px;
+}
+
+.lesson-card h3{
+margin-bottom:10px;
+}
+
+.lesson-card p{
+color:#d0c5b4;
+font-size:.95rem;
+margin-bottom:20px;
+}
+
+/* FINANCIAL */
+
+.finance-panel{
+background:#0d2234;
+padding:35px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.finance-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.finance-box{
+background:#132c44;
+padding:25px;
+border-radius:20px;
+}
+
+.finance-box h3{
+margin-bottom:10px;
+color:#f7dfb3;
+}
+
+/* AI COACH */
+
+.ai-coach{
+background:#0d2234;
+padding:35px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.ai-coach textarea{
+width:100%;
+min-height:140px;
+background:#132c44;
+border:none;
+border-radius:18px;
+padding:20px;
+color:white;
+margin-top:20px;
+margin-bottom:20px;
+resize:vertical;
+}
+
+.response{
+background:#132c44;
+padding:20px;
+border-radius:18px;
+margin-top:20px;
+color:#f5ecd9;
+}
+
+/* FOOTER */
+
+footer{
+padding:60px 6%;
+text-align:center;
+color:#bfb2a0;
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.dashboard-grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:2.8rem;
+}
+
+nav{
+display:none;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav>
+<a href="#">Dashboard</a>
+<a href="#">Learning</a>
+<a href="#">Scholarships</a>
+<a href="#">Finance</a>
+<a href="#">Community</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div>
+
+<h1>Where Students <span>Learn Smarter, Build Confidence & Elevate Financially</span></h1>
+
+<p>
+ElevateU combines educational entertainment, career discovery, financial literacy, scholarship support, AI coaching, and interactive learning into a platform teens actually enjoy using.
+</p>
+
+<div class="hero-buttons">
+<button class="btn primary">Explore Dashboard</button>
+<button class="btn secondary">Watch Demo</button>
+</div>
+
+</div>
+
+<div class="login-panel">
+
+<section class="dashboard">
+
+<h2 class="section-title">Inside The Student Dashboard</h2>
+
+<p class="section-sub">
+This platform is designed like a modern entertainment app while secretly helping students improve learning habits, financial thinking, communication skills, and future opportunities.
+</p>
+
+<div class="dashboard-grid">
+
+<div class="sidebar">
+
+<div class="profile">
+
+<div class="avatar"></div>
+
+<h3>Jordan Williams</h3>
+
+<p class="level">Level 14 Growth Member</p>
+
+</div>
+
+<div class="side-menu">
+
+<div>📚 Personalized Lessons</div>
+<div>💰 Scholarship Matches</div>
+<div>🧠 AI Study Coach</div>
+<div>🎯 Career Discovery</div>
+<div>📈 Wealth Building</div>
+<div>🎤 Confidence Training</div>
+<div>🔥 Daily Challenges</div>
+
+</div>
+
+</div>
+
+<div class="main-dashboard">
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<h2 id="points">1,240</h2>
+<p>Growth Points Earned</p>
+</div>
+
+<div class="stat-card">
+<h2 id="streak">19</h2>
+<p>Day Learning Streak</p>
+</div>
+
+<div class="stat-card">
+<h2>32</h2>
+<p>Scholarship Matches</p>
+</div>
+
+<div class="stat-card">
+<h2>$4,200</h2>
+<p>Virtual Savings Built</p>
+</div>
+
+</div>
+
+<div class="lesson-grid">
+
+<div class="lesson-card">
+<div class="lesson-tag">TRENDING</div>
+<h3>AI & The Future Economy</h3>
+<p>
+Understand how artificial intelligence is changing jobs, businesses, and income opportunities before most students graduate.
+</p>
+<button class="btn primary" onclick="completeLesson()">Start Lesson</button>
+</div>
+
+<div class="lesson-card">
+<div class="lesson-tag">POPULAR</div>
+<h3>Hidden Psychology Of Money</h3>
+<p>
+Learn why emotional habits influence spending and how successful people structure financial decisions.
+</p>
+<button class="btn primary" onclick="completeLesson()">Explore Topic</button>
+</div>
+
+<div class="lesson-card">
+<div class="lesson-tag">CAREERS</div>
+<h3>Career Discovery Simulator</h3>
+<p id="careerResult">
+Generate modern career ideas based on creativity, technology, leadership, and future demand.
+</p>
+<button class="btn primary" onclick="generateCareer()">Generate Career</button>
+</div>
+
+</div>
+
+<div class="finance-panel">
+
+<h2>Financial Elevation Center</h2>
+
+<div class="finance-grid">
+
+<div class="finance-box">
+<h3>Scholarship Planning</h3>
+<p>
+Track deadlines, essay progress, recommendation letters, and financial aid opportunities.
+</p>
+</div>
+
+<div class="finance-box">
+<h3>Side Hustle Builder</h3>
+<p>
+Discover realistic income opportunities teens can begin learning before adulthood.
+</p>
+</div>
+
+<div class="finance-box">
+<h3>Future Salary Explorer</h3>
+<p>
+Compare careers based on projected income, flexibility, growth, and demand.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="ai-coach">
+
+<h2>AI Motivation & Study Coach</h2>
+
+<p style="margin-top:10px; color:#cfc5b6;">
+Write what you're struggling with, your goals, or what you need help understanding.
+</p>
+
+<textarea id="userThought"></textarea>
+
+<button class="btn primary" onclick="generateAdvice()">Receive Guidance</button>
+
+<div class="response" id="coachResponse">
+Your personalized support response will appear here.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+ElevateU • Educational Entertainment • Higher Education Support • Financial Growth
+</p>
+
+</footer>
+
+<script>
+
+let points = 1240;
+let streak = 19;
+
+function signIn(){
+
+document.getElementById("loginMessage").innerHTML =
+"Welcome back. Your dashboard is loading.";
+
+}
+
+function completeLesson(){
+
+points += 25;
+
+document.getElementById("points").innerHTML = points;
+
+}
+
+function generateCareer(){
+
+const careers = [
+
+"AI Product Designer — blends psychology, creativity, and technology.",
+
+"Digital Brand Strategist — helps companies grow online audiences.",
+
+"Cybersecurity Analyst — protects systems and businesses from attacks.",
+
+"Financial Content Creator — teaches money concepts online.",
+
+"UX Researcher — studies how people interact with apps and systems."
+
+];
+
+const randomCareer =
+careers[Math.floor(Math.random() * careers.length)];
+
+document.getElementById("careerResult").innerHTML =
+randomCareer;
+
+points += 40;
+
+document.getElementById("points").innerHTML = points;
+
+}
+
+function generateAdvice(){
+
+const responses = [
+
+"Consistency matters more than motivation. Focus on repeating small actions daily.",
+
+"The students who adapt quickly to technology and communication will have a major advantage in the future economy.",
+
+"Confidence is often built through preparation, repetition, and exposure — not natural talent.",
+
+"Financial growth usually begins with learning skills that create value for other people.",
+
+"Every difficult subject becomes easier when broken into smaller pieces and practiced repeatedly."
+
+];
+
+const randomResponse =
+responses[Math.floor(Math.random() * responses.length)];
+
+document.getElementById("coachResponse").innerHTML =
+randomResponse;
+
+streak += 1;
+
+document.getElementById("streak").innerHTML = streak;
+
+}
+
+</script>
+
+</body>
+</html>
